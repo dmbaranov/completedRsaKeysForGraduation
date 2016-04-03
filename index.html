@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jsbn.js"></script>
+    <script src="random.js"></script>
+    <script src="cryptico.js"></script>
+    <script src="hash.js"></script>
+    <script src="rsa.js"></script>
+  </head>
+  <body>
+
+  <script>
+    function print(string)
+    {
+      document.write(string + "\n\n\n\n\n\n");
+    }
+
+    var bits = 512;
+    var userOnePass = '123456789';
+    var userTwoPass = '987654321';
+
+    var userOnePrivateKey = cryptico.generateRSAKey(userOnePass, bits);
+    var userOnePublicKey = cryptico.publicKeyString(userOnePrivrrateKey);
+
+    var userTwoPrivateKey = cryptico.generateRSAKey(userTwoPass, bits);
+    var userTwoPublicKey = cryptico.publicKeyString(userTwoPrivateKey);
+
+    var userOneMessage = "Hello dude, how it's going?!";
+    var userOneEncrypted = cryptico.encrypt(userOneMessage, userTwoPublicKey);
+
+    console.log(userOneMessage);
+    console.log(userOneEncrypted.cipher);
+
+    var userTwoReceivedMessage = cryptico.decrypt(userOneEncrypted.cipher, userTwoPrivateKey);
+
+    console.log(userTwoReceivedMessage.plaintext);
+
+  </script>
+
+  </body>
+</html>
